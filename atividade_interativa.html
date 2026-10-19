@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Operação Código Secreto · Cifra de César</title>
+<style>
+:root{--ink:#15283a;--muted:#52667a;--blue:#1662ab;--light:#eef5fb;--line:#dce5ed;--white:#fff;--yellow:#fff7d5}*{box-sizing:border-box}
+body{margin:0;background:#f3f6fa;color:var(--ink);font-family:system-ui,Segoe UI,Arial,sans-serif;font-size:15px;line-height:1.55}.wrap{max-width:1020px;margin:auto;padding:22px}.hero{background:linear-gradient(115deg,#0e305a,#1469ad);color:white;border-radius:18px;padding:28px 30px}.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;opacity:.85}h1{font-size:clamp(26px,4vw,38px);line-height:1.15;margin:7px 0 10px}h2{font-size:22px;margin:0 0 15px}h3{font-size:17px;margin:0 0 10px}.hero p{max-width:700px;margin:8px 0}.pill{display:inline-block;background:#ffffff25;border:1px solid #ffffff50;padding:5px 11px;border-radius:20px;font-size:12px;margin-top:8px}section{border:1px solid var(--line);background:var(--white);border-radius:16px;padding:24px;margin:18px 0;box-shadow:0 4px 18px #15283a08}.lead{color:var(--muted)}.help{background:var(--light);border-left:4px solid var(--blue);padding:12px 14px;border-radius:7px}.notice{background:var(--yellow);border:1px solid #f2df93;padding:12px 14px;border-radius:8px}.mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.alpha{overflow-x:auto;background:#f2f5f8;padding:12px;border-radius:8px;white-space:pre;letter-spacing:.02em;font-size:13px}label{display:block;font-weight:650;font-size:13px;margin:12px 0 5px}input,textarea{width:100%;border:1px solid #bdccd8;border-radius:8px;padding:10px 11px;font:inherit;color:inherit;background:white}input:focus,textarea:focus{outline:2px solid #8bc5ec;outline-offset:1px}textarea{min-height:68px;resize:vertical}.identity{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px}.steps{margin-top:4px}.qcard{border:1px solid var(--line);padding:17px;border-radius:12px;margin:12px 0}.qcard>h3{color:#155b94}.cipher{background:#f0f4fb;border:1px dashed #a4bdd5;padding:12px;border-radius:8px;overflow-wrap:anywhere;font-weight:750;letter-spacing:.06em}.formgrid{display:grid;grid-template-columns:180px 1fr;gap:0 12px}.formgrid .wide{grid-column:1/-1}.tools{display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin-top:16px}button,.action{background:#145b98;color:#fff;border:none;padding:10px 14px;border-radius:9px;font:inherit;font-weight:650;cursor:pointer}button.secondary{background:#e7f0f8;color:#17426b}button:hover{filter:brightness(.94)}.shiftbar{display:flex;gap:18px;align-items:center;flex-wrap:wrap}.shiftbar input{width:200px}.wordlist{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.worditem{background:#f7fafc;border:1px solid var(--line);padding:10px;border-radius:10px}.worditem label{margin-top:0}.wordgridwrap{overflow-x:auto}.wordgrid{display:grid;grid-template-columns:repeat(15,29px);gap:2px;width:max-content;margin:15px 0}.cell{width:29px;height:29px;border:1px solid #d1dce6;border-radius:4px;background:#f7f9fb;color:#1a3853;font:700 15px ui-monospace,Consolas,monospace;padding:0}.cell.marked{background:#f6c34d;color:#14293c;border-color:#b58b27}.cell.found{background:#16a05e;color:white;border-color:#0e7d48;box-shadow:inset 0 0 0 1px #ffffff70}.cell.wrong{background:#f6b3b3;color:#8d1818;border-color:#c53f3f}.worditem.found{background:#ecfff2;border-color:#2eaf66}.worditem.found strong{color:#137b45}.worditem .status{display:block;font-weight:750;font-size:12px;color:#137b45;margin-top:6px}.worditem .status:empty{display:none}.puzzle-status{margin:14px 0 4px;border:1px solid #c9dee8;background:#f3f9fd;padding:11px 13px;border-radius:10px;font-weight:650}.puzzle-status.success{background:#e4ffe9;border-color:#17a05c;color:#14643b}.wheel-area{display:grid;grid-template-columns:minmax(260px,360px) minmax(250px,1fr);align-items:center;gap:22px;margin:16px 0}.wheel-box{margin:auto;max-width:360px;width:100%;border-radius:50%;background:radial-gradient(circle,#fffbea 10%,#e6d8af 73%,#ad8559);box-shadow:0 8px 20px #122a3d26;padding:6px}.wheel-box svg{width:100%;height:auto;display:block}.wheel-controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.wheel-controls button{min-width:45px;font-size:20px;padding:6px 12px}.wheel-controls input{width:175px}.wheel-hint{color:#4d6174;font-size:13px}.wheel-legend{background:#f5f8fc;padding:12px;border-radius:10px;margin-top:12px}.wheel-letter{font-family:ui-monospace,Consolas,monospace;font-size:16px;font-weight:800;fill:#17344a}.wheel-letter.inner{fill:#854625}.wheel-center{font-family:system-ui,Arial,sans-serif;fill:#4a321b;font-size:13px;font-weight:800}.wheel-rotor{transform-origin:180px 180px;transition:transform .34s ease}.wheel-label{font-weight:700;font-size:13px}.puzzle-progress{margin-left:8px;color:#27647c;font-weight:800}.cell:focus-visible{outline:2px solid #1365b4;outline-offset:1px}.gridrow{display:flex;gap:8px;align-items:center}.rownum{display:inline-block;min-width:22px;text-align:right;color:#6c7d90;font:12px ui-monospace,monospace}.rule{height:1px;background:var(--line);margin:17px 0}.footer{color:var(--muted);font-size:12px;text-align:center;padding:12px 0 26px}.toolbar{position:sticky;top:0;background:#ffffffef;backdrop-filter:blur(7px);border-bottom:1px solid var(--line);z-index:9;padding:10px 0}.toolbar>.wrap{padding:0 22px;display:flex;align-items:center;justify-content:space-between;gap:8px}.toolbar strong{font-size:13px}.toolbar .tools{margin:0}.toolbar button{padding:8px 11px;font-size:12px}.small{font-size:12px;color:var(--muted)}@media(max-width:760px){.wheel-area{grid-template-columns:1fr}.wheel-box{max-width:310px}.wrap{padding:12px}.identity,.formgrid,.wordlist{grid-template-columns:1fr}.hero,section{padding:17px}.toolbar>.wrap{flex-wrap:wrap}.cell{width:26px;height:26px}.wordgrid{grid-template-columns:repeat(15,26px)}}@media print{.wheel-rotor{transition:none}.wheel-box{max-width:250px}.wheel-area{grid-template-columns:1fr 1fr}body{background:white}.toolbar,.no-print{display:none!important}.wrap{max-width:none;padding:0}.hero{border-radius:0;background:white!important;color:#172a3c!important;padding:8px 0 14px;border-bottom:3px solid #174f80}.pill{color:#172a3c;border:1px solid #889}.hero .eyebrow{color:#172a3c}section{box-shadow:none;border:1px solid #aaa;break-inside:avoid;padding:13px;margin:12px 0}.qcard{break-inside:avoid}input,textarea{border:0;border-bottom:1px solid #777;border-radius:0} .cell{print-color-adjust:exact;-webkit-print-color-adjust:exact}.wordgridwrap{overflow:visible}.footer{display:none}}
+</style>
+</head>
+<body>
+<div class="toolbar no-print"><div class="wrap"><strong>🔐 Operação Código Secreto</strong><div class="tools"><button type="button" onclick="downloadAnswers()">⬇ Baixar respostas (.txt)</button><button class="secondary" type="button" onclick="window.print()">🖨 Imprimir</button><button class="secondary" type="button" onclick="resetAnswers()">Limpar</button></div></div></div>
+<main class="wrap"><header class="hero"><div class="eyebrow">Segurança de Dados • Missão investigativa</div><h1>Operação Código Secreto</h1><p>Descubra chaves misteriosas, leia perguntas escondidas, responda aos desafios e encontre palavras em uma grade criptografada.</p><span class="pill">Cifra de César</span> <span class="pill">6 mensagens + 1 caça-palavras</span></header>
+<section><h2>Identificação</h2><div class="identity"><div><label for="nome">Nome</label><input id="nome" data-save placeholder="Seu nome"></div><div><label for="turma">Turma</label><input id="turma" data-save placeholder="Ex.: 301"></div><div><label for="data">Data</label><input id="data" data-save type="date"></div></div></section>
+<section><h2>1. Entenda a cifra antes de começar</h2><p>Imagine que você substitua cada letra por outra que esteja algumas posições <b>à frente</b> no alfabeto. O número de posições é chamado de <b>chave</b>. Para desfazer a criptografia, você volta o mesmo número de posições.</p><div class="help"><strong>Exemplo — chave 3</strong><div class="alpha mono">Normal:  A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+Cifrado: D E F G H I J K L M N O P Q R S T U V W X Y Z A B C</div><p><b>CASA → FDVD</b> para criptografar. <b>FDVD → CASA</b> para decifrar. Depois do Z o alfabeto recomeça em A. Espaços e pontuação permanecem.</p></div><h3 style="margin-top:18px">Roda de deslocamento para testar suas hipóteses</h3><p class="lead">Altere o número e observe que letra corresponde a cada outra. A roda <b>não mostra</b> a resposta das missões: você deve reconhecer qual deslocamento produz palavras com sentido.</p><div class="wheel-area"><div class="wheel-box"><svg id="cesarWheel" viewBox="0 0 360 360" role="img" aria-label="Roda giratória da Cifra de César: alfabeto original do lado de fora e alfabeto cifrado no disco interno"><title>Roda de César interativa</title></svg></div><div><h3>Gire os discos e descubra a chave</h3><p>Como nos antigos discos de cifras, o alfabeto <b>externo (azul)</b> fica parado. O alfabeto <b>interno (marrom)</b> gira quando você muda a chave.</p><div class="wheel-controls"><button type="button" class="secondary" id="shiftMinus" aria-label="Diminuir chave">−</button><label for="slider">Chave <strong id="shiftOut">3</strong></label><button type="button" class="secondary" id="shiftPlus" aria-label="Aumentar chave">+</button></div><div class="wheel-controls"><input id="slider" type="range" min="1" max="25" value="3" aria-label="Selecionar chave da cifra"><span class="small">De 1 até 25</span></div><div class="wheel-legend"><div class="wheel-label">Exemplo com a chave selecionada</div><p class="mono" id="wheelExample" aria-live="polite"></p><p class="wheel-hint">Para criptografar, procure a letra na roda externa e veja a letra cifrada alinhada no disco interno. Para decifrar, faça o contrário.</p></div></div></div><div class="alpha mono" id="alphaview" aria-live="polite"></div><div class="notice"><b>Como descobrir uma chave que não foi informada?</b> Teste valores de 1 a 25. Para cada valor, volte as letras; quando aparecer uma pergunta que faça sentido, registre a chave. Não é necessário programar para as primeiras missões.</div></section>
+<section><h2>2. Interceptações: descubra a chave e responda</h2><p class="lead">Cada uma das seis mensagens usa uma chave <b>diferente</b>. Em cada missão você deve preencher: número da chave, pergunta decifrada, resposta e explicação de como descobriu.</p><div id="questions"></div></section>
+<section><h2>3. Caça-palavras criptografado</h2><div class="notice"><b>Chave fixa: 3</b>. A grade inteira foi criptografada deslocando cada letra 3 posições para a frente. As palavras da lista estão em português, mas você deve primeiro <b>criptografar cada uma</b> e procurar a versão codificada na grade.</div><p>Localize as palavras em <b>→ horizontal</b>, <b>↓ vertical</b> ou <b>↘ diagonal</b>. Não há palavras invertidas. <b>Clique na primeira letra e depois na última letra da palavra</b>, sempre seguindo a ordem correta. O caminho fica <b>amarelo</b> enquanto você seleciona e <b>verde</b> somente se a palavra inteira estiver certa! Uma seleção errada fica vermelha por um instante para você tentar novamente.</p><div id="puzzleStatus" class="puzzle-status" role="status" aria-live="polite">Selecione a primeira e a última letra de uma palavra para começar. <span class="puzzle-progress" id="puzzleCount">0/9 palavras</span></div><h3>Lista de palavras (converta cada uma com chave 3)</h3><div class="wordlist" id="wordlist"></div><div class="wordgridwrap"><div class="wordgrid" id="grid" role="group" aria-label="Caça-palavras criptografado de 15 linhas e 15 colunas"></div></div><p class="small">As coordenadas começam em linha 1, coluna 1, no canto superior esquerdo. Quando você encontrar a sequência correta, a palavra ficará verde e a posição inicial será preenchida automaticamente.</p><div class="tools no-print"><button class="secondary" onclick="clearMarks()" type="button">Recomeçar somente o caça-palavras</button></div></section>
+<section><h2>4. Crie uma mensagem para um colega</h2><p>Escreva uma pergunta que seu colega possa responder, escolha uma chave e transforme cada letra. Troque apenas a versão criptografada com o colega para ele tentar descobrir a chave.</p><label for="suaPergunta">Pergunta original</label><textarea id="suaPergunta" data-save></textarea><label for="suaChave">Chave escolhida (1–25)</label><input id="suaChave" type="number" min="1" max="25" data-save><label for="suaCifra">Minha pergunta criptografada</label><textarea id="suaCifra" data-save></textarea><label for="chaveColega">Qual era a chave da mensagem do colega?</label><input id="chaveColega" data-save><label for="respostaColega">Mensagem do colega que consegui decifrar</label><textarea id="respostaColega" data-save></textarea></section>
+<section class="no-print"><h2>5. Como entregar</h2><ol><li>Preencha as missões e o caça-palavras nesta página.</li><li>Clique em <b>Baixar respostas (.txt)</b> e salve o arquivo no computador.</li><li>Entregue conforme a orientação do professor; se estiver trabalhando com GitHub, também pode preencher o arquivo <b>RESPOSTAS_ALUNO.md</b>.</li></ol><p class="small">Seu preenchimento é salvo automaticamente <b>neste navegador</b>, no mesmo computador. Para não perder o trabalho ao trocar de máquina, baixe o arquivo de respostas. Nenhum dado é enviado pela página para a internet.</p></section><div class="footer">Atividade educacional • Cifra de César • Respostas e gabarito não estão incluídos neste arquivo.</div></main>
+<script>
+'use strict';
+const qs=["UYEP PMRKYEKIQ GVME E IWXVYXYVE HI YQE TEKMRE AIF?", "XBHS SPUNBHNLT KLMPUL JVYLZ L LZAPSVZ KL BTH WHNPUH?", "ZDJU NMRCXA MN LXMRPX DCRURIJVXB YJAJ YAXPAJVJA?", "CGMX Q A ZAYQ PM FQOZUOM PQ FDAOMD XQFDME BAD PQEXAOMYQZFA?", "VZFQ J T STRJ IT HTSOZSYT IJ QJYWFX IJ F F E?", "IMSD HSDSNJS MKSEGK HSJS HJGLWYWJ G SUWKKG S MES UGFLS?"];
+const words=["CESAR", "CHAVE", "DADOS", "SENHA", "CODIGO", "ALFABETO", "SEGURANCA", "MENSAGEM", "CRIPTOGRAFIA"];
+const grid=[["L", "F", "I", "L", "X", "H", "H", "X", "D", "Q", "G", "O", "P", "H", "D"], ["I", "X", "Q", "D", "J", "U", "R", "U", "F", "K", "D", "Y", "H", "Z", "F"], ["B", "Y", "X", "V", "D", "N", "D", "O", "O", "P", "G", "I", "Q", "F", "R"], ["E", "U", "F", "N", "H", "H", "H", "F", "P", "K", "R", "A", "V", "U", "G"], ["J", "B", "I", "P", "B", "Q", "A", "H", "H", "H", "V", "F", "D", "L", "L"], ["A", "M", "L", "N", "H", "J", "K", "V", "L", "R", "W", "L", "J", "S", "J"], ["I", "R", "Q", "N", "P", "Y", "G", "D", "O", "I", "D", "E", "H", "W", "R"], ["U", "B", "Z", "G", "V", "X", "Z", "U", "S", "M", "G", "D", "P", "R", "N"], ["T", "E", "G", "E", "I", "I", "Q", "V", "O", "U", "E", "B", "N", "J", "O"], ["Q", "Z", "I", "F", "Z", "L", "T", "W", "B", "W", "Y", "Y", "C", "U", "P"], ["H", "S", "B", "V", "D", "J", "D", "L", "K", "S", "K", "M", "T", "D", "Y"], ["V", "S", "O", "Y", "J", "N", "J", "Z", "Z", "J", "H", "U", "G", "I", "O"], ["S", "O", "X", "O", "B", "P", "Y", "K", "Q", "S", "Q", "M", "N", "L", "Y"], ["P", "Z", "X", "Z", "U", "V", "H", "J", "X", "U", "D", "Q", "F", "D", "O"], ["J", "Q", "M", "S", "C", "D", "V", "W", "F", "T", "R", "B", "F", "S", "C"]];
+const ABC='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const STORAGE='operacao-codigo-secreto-v2';
+let state={};
+try{state=JSON.parse(localStorage.getItem(STORAGE)||'{}')||{}}catch(e){state={}}
+function store(){try{localStorage.setItem(STORAGE,JSON.stringify(state))}catch(e){}}
+function make(tag,attributes={},text){let el=document.createElement(tag);for(const [name,value] of Object.entries(attributes)){if(name==='class')el.className=value;else el.setAttribute(name,value)}if(text!==undefined)el.textContent=text;return el}
+function addField(parent,labelText,id,tag='input',className=''){const lab=make('label',{for:id},labelText);parent.append(lab);let el=make(tag,{id,'data-save':'',...(className?{class:className}:{})});parent.append(el);return el}
+qs.forEach((cipher,i)=>{const n=i+1,div=make('div',{class:'qcard'});div.append(make('h3',{},'Missão '+String(n).padStart(2,'0')));div.append(make('div',{class:'cipher mono'},cipher));let fields=make('div',{class:'formgrid'});addField(fields,'Chave descoberta',`m${n}_chave`);addField(fields,'Pergunta decifrada',`m${n}_pergunta`);addField(fields,'Minha resposta',`m${n}_resposta`,'textarea','wide');addField(fields,'Como descobri a chave?',`m${n}_metodo`,'textarea','wide');div.append(fields);document.querySelector('#questions').append(div)});
+words.forEach((w,i)=>{let div=make('div',{class:'worditem'});div.append(make('strong',{},w));addField(div,'Como fica criptografada?',`w${i}_cifra`);addField(div,'Linha e coluna inicial',`w${i}_pos`);div.append(make('span',{class:'status',id:`status_${i}`},''));div.id=`word_${i}`;document.querySelector('#wordlist').append(div)});
+// === CAÇA-PALAVRAS: somente uma sequência completa e correta ganha a cor verde. ===
+const encodedWords=words.map(w=>w.split('').map(ch=>ABC[(ABC.indexOf(ch)+3)%26]).join(''));
+let foundWords=new Set(Array.isArray(state.foundWords)?state.foundWords:[]);
+let pendingStart=null;
+let preview=[];
+let wrongTimer=null;
+const gridEl=document.getElementById('grid');
+const btnAt=(r,c)=>gridEl.children[r*15+c];
+function pathBetween(a,b){
+  const dr=b.r-a.r,dc=b.c-a.c;
+  if(dr<0 || dc<0 || !(dr===0 || dc===0 || dr===dc) || (dr===0 && dc===0))return null;
+  const len=Math.max(dr,dc)+1, sr=Math.sign(dr),sc=Math.sign(dc);
+  return Array.from({length:len},(_,i)=>({r:a.r+i*sr,c:a.c+i*sc}));
+}
+function getSelectionText(cells){return cells.map(({r,c})=>grid[r][c]).join('')}
+function clearPreview(){for(const {r,c} of preview){btnAt(r,c).classList.remove('marked','wrong')}preview=[]}
+function setPreview(cells,invalid=false){clearPreview();preview=cells;for(const {r,c} of cells){if(!btnAt(r,c).classList.contains('found'))btnAt(r,c).classList.add(invalid?'wrong':'marked')}}
+function message(msg,success=false){const el=document.getElementById('puzzleStatus');el.firstChild.textContent=msg+' ';el.classList.toggle('success',success)}
+function saveFound(){state.foundWords=[...foundWords];store()}
+function paintFound(){
+  document.querySelectorAll('.cell').forEach(el=>{el.classList.remove('found');el.setAttribute('aria-pressed','false')});
+  foundWords.forEach(i=>{let start=findLocation(encodedWords[i]);if(start){const coords=Array.from({length:encodedWords[i].length},(_,n)=>({r:start.r+start.dr*n,c:start.c+start.dc*n}));coords.forEach(({r,c})=>{btnAt(r,c).classList.add('found');btnAt(r,c).setAttribute('aria-pressed','true')})}});
+  words.forEach((w,i)=>{document.getElementById(`word_${i}`).classList.toggle('found',foundWords.has(i));document.getElementById(`status_${i}`).textContent=foundWords.has(i)?'✓ Palavra encontrada!':''});
+  document.getElementById('puzzleCount').textContent=`${foundWords.size}/${words.length} palavras`;
+  if(foundWords.size===words.length)message('🎉 Parabéns! Você encontrou TODAS as palavras e concluiu o caça-palavras!',true);
+}
+// Verifica onde a palavra aparece na grade; não revela as coordenadas na tela antes do acerto.
+function findLocation(code){for(let r=0;r<15;r++)for(let c=0;c<15;c++)for(const [dr,dc] of [[0,1],[1,0],[1,1]]){
+  if([...code].every((ch,i)=>grid[r+dr*i]?.[c+dc*i]===ch))return {r,c,dr,dc};
+}return null}
+function selectCell(r,c){
+  if(wrongTimer){clearTimeout(wrongTimer);wrongTimer=null;clearPreview()}
+  const pos={r,c};
+  if(pendingStart===null){pendingStart=pos;setPreview([pos]);message('Primeira letra escolhida. Agora clique na última letra da palavra.');return}
+  if(pendingStart.r===r && pendingStart.c===c){pendingStart=null;clearPreview();message('Seleção cancelada. Escolha uma primeira letra.');return}
+  const path=pathBetween(pendingStart,pos);pendingStart=null;
+  if(!path){clearPreview();message('Use somente →, ↓ ou ↘, começando pela primeira letra. Tente novamente.');return}
+  const attempt=getSelectionText(path);
+  const idx=encodedWords.findIndex((word,i)=>word===attempt && !foundWords.has(i));
+  if(idx>=0){
+    clearPreview();foundWords.add(idx);saveFound();
+    // Registra automaticamente a palavra e a coordenada inicial.
+    for(const [id,val] of [[`w${idx}_cifra`,attempt],[`w${idx}_pos`,`Linha ${path[0].r+1}, coluna ${path[0].c+1}`]]){
+      const input=document.getElementById(id);input.value=val;state[id]=val;
+    }
+    store();paintFound();
+    if(foundWords.size!==words.length)message(`✅ Você encontrou ${words[idx]}! Continue, faltam ${words.length-foundWords.size}.`);
+  }else{
+    setPreview(path,true);message('Ainda não! Confira a sequência completa de letras e tente novamente.');
+    wrongTimer=setTimeout(()=>{clearPreview();wrongTimer=null},850);
+  }
+}
+grid.forEach((row,r)=>row.forEach((letter,c)=>{
+  const b=make('button',{type:'button',class:'cell','aria-label':`Linha ${r+1}, coluna ${c+1}: ${letter}`,'aria-pressed':'false',title:`Linha ${r+1}, coluna ${c+1}`},letter);
+  b.addEventListener('click',()=>selectCell(r,c));gridEl.append(b)
+}));
+paintFound();
+for(const el of document.querySelectorAll('[data-save]')){if(state[el.id]!==undefined)el.value=state[el.id];el.addEventListener('input',()=>{state[el.id]=el.value;store()})}
+// === RODA VISUAL GIRATÓRIA, inspirada nos discos históricos de cifra ===
+const wheel=document.getElementById('cesarWheel');
+const ns='http://www.w3.org/2000/svg';
+const addSvg=(parent,tag,attrs={},content)=>{
+  const node=document.createElementNS(ns,tag);Object.entries(attrs).forEach(([k,v])=>node.setAttribute(k,v));
+  if(content!==undefined)node.textContent=content;parent.append(node);return node
+};
+addSvg(wheel,'circle',{cx:180,cy:180,r:172,fill:'#cda772',stroke:'#785231','stroke-width':5});
+addSvg(wheel,'circle',{cx:180,cy:180,r:150,fill:'#eee1bc',stroke:'#785231','stroke-width':2});
+addSvg(wheel,'circle',{cx:180,cy:180,r:118,fill:'#f8f1d5',stroke:'#b68d4f','stroke-width':3});
+const rotor=addSvg(wheel,'g',{class:'wheel-rotor'});
+addSvg(rotor,'circle',{cx:180,cy:180,r:112,fill:'#ead0a8',stroke:'#966137','stroke-width':3});
+addSvg(rotor,'circle',{cx:180,cy:180,r:75,fill:'#fff6e7',stroke:'#b58f60','stroke-width':2});
+for(let i=0;i<26;i++){
+  const ang=(-90+i*360/26)*Math.PI/180;
+  for(const [parent,radius,cls] of [[wheel,133,'wheel-letter'],[rotor,95,'wheel-letter inner']]){
+    const x=(180+radius*Math.cos(ang)).toFixed(2),y=(180+radius*Math.sin(ang)).toFixed(2);
+    addSvg(parent,'text',{x,y,class:cls,'text-anchor':'middle','dominant-baseline':'central'},ABC[i]);
+  }
+}
+// Linhas douradas dos discos e botão central.
+addSvg(wheel,'circle',{cx:180,cy:180,r:64,fill:'#f5e5c0',stroke:'#84623a','stroke-width':3});
+addSvg(wheel,'text',{x:180,y:166,class:'wheel-center','text-anchor':'middle'},'CIFRA DE');
+addSvg(wheel,'text',{x:180,y:184,class:'wheel-center','text-anchor':'middle'},'CÉSAR');
+const wheelKey=addSvg(wheel,'text',{x:180,y:207,'text-anchor':'middle','font-size':20,'font-weight':850,fill:'#5e3a24'},'3');
+function redrawAlphabet(){
+  const k=Number(document.getElementById('slider').value);
+  const top=ABC.split('').join(' '),bot=ABC.split('').map((x,i)=>ABC[(i+k)%26]).join(' ');
+  document.getElementById('shiftOut').textContent=k;
+  document.getElementById('alphaview').textContent='Normal:  '+top+'\nCifrado: '+bot;
+  rotor.style.transform=`rotate(${-k*360/26}deg)`;
+  wheelKey.textContent=String(k);
+  document.getElementById('wheelExample').textContent=`A → ${ABC[k]}   |   B → ${ABC[(k+1)%26]}   |   C → ${ABC[(k+2)%26]}`;
+}
+const slider=document.getElementById('slider');
+slider.addEventListener('input',redrawAlphabet);
+document.getElementById('shiftMinus').addEventListener('click',()=>{slider.value=Number(slider.value)===1?25:Number(slider.value)-1;redrawAlphabet()});
+document.getElementById('shiftPlus').addEventListener('click',()=>{slider.value=Number(slider.value)===25?1:Number(slider.value)+1;redrawAlphabet()});
+redrawAlphabet();
+function clearMarks(){
+  if(!confirm('Recomeçar o caça-palavras? As palavras encontradas ficarão sem marcação verde.'))return;
+  foundWords.clear();pendingStart=null;clearPreview();saveFound();paintFound();
+  words.forEach((w,i)=>{for(const id of [`w${i}_cifra`,`w${i}_pos`]){document.getElementById(id).value='';delete state[id]}});
+  store();message('Caça-palavras reiniciado. Escolha a primeira letra de uma palavra.');
+}
+function resetAnswers(){if(!confirm('Apagar TODAS as respostas e marcações deste navegador?'))return;state={};store();location.reload()}
+function downloadAnswers(){const value=id=>document.getElementById(id)?.value||'(em branco)';let lines=['OPERAÇÃO CÓDIGO SECRETO — RESPOSTAS','Nome: '+value('nome'),'Turma: '+value('turma'),'Data: '+value('data'),''];qs.forEach((cipher,i)=>{let n=i+1;lines.push('MISSÃO '+n,'Criptografado: '+cipher,'Chave: '+value(`m${n}_chave`),'Pergunta: '+value(`m${n}_pergunta`),'Resposta: '+value(`m${n}_resposta`),'Método: '+value(`m${n}_metodo`),'')});lines.push('CAÇA-PALAVRAS — CHAVE 3');words.forEach((w,i)=>lines.push(w+' | Codificado: '+value(`w${i}_cifra`)+' | Início: '+value(`w${i}_pos`)));lines.push('Palavras encontradas: '+[...foundWords].map(i=>words[i]).join(', '),'Total: '+foundWords.size+'/'+words.length,'','CRIAÇÃO PRÓPRIA','Pergunta: '+value('suaPergunta'),'Chave: '+value('suaChave'),'Criptografada: '+value('suaCifra'),'Chave do colega: '+value('chaveColega'),'Pergunta do colega: '+value('respostaColega'));let blob=new Blob([lines.join('\n')],{type:'text/plain;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='minhas_respostas_cifra_cesar.txt';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+</script></body></html>
